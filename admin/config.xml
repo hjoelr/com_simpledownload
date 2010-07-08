@@ -7,6 +7,10 @@
 			<option value="1">Yes</option>
 			<option value="0">No</option>
 		</param>
+		<param type="radio" name="log_downloads" default="0" label="Log Downloads" description="If set to yes, downloads will be logged to #__simple_download_hits table.">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
 		<param type="text" name="cipherfile" default="components/com_simpledownload/helpers/encryption.php" size="25" label="Cipher File" description="The path to the file that will be used to encrypt and decrypt the file path." />
 		<param type="text" name="cipherfunction" default="jcrypt64" size="25" label="Cipher Function" description="The function to call (thats located in the cipher file) that will encrypt the file path." />
 		<param type="text" name="decipherfunction" default="jdecrypt64" size="25" label="Decipher Function" description="The function to call (thats located in the cipher file) that will decrypt the file path." />

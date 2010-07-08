@@ -2,14 +2,14 @@
 <install type="component" version="1.5.0">
 	<name>SimpleDownload</name>
 	<!-- The following elements are optional and free of formatting conttraints -->
-	<creationDate>2010-05-16</creationDate>
+	<creationDate>2010-07-08</creationDate>
 	<author>Joel Rowley</author>
 	<authorEmail>joomlaextensions@joelrowley.com</authorEmail>
 	<authorUrl>http://joomla.joelrowley.com</authorUrl>
 	<copyright>None</copyright>
 	<license>GPL</license>
 	<!--  The version string is recorded in the components table -->
-	<version>0.9.6</version>
+	<version>0.9.7</version>
 	<!-- The description is optional and defaults to the name -->
 	<description><![CDATA[<p>Thank you for trying out SimpleDownload. With this extention, you will be able to force the end users' browser to download files that would normally be viewed or played using a browser plugin (eg. MP3s, PDFs, etc).  SimpleDownload has the following features:</p>
 <ul>
@@ -44,6 +44,7 @@ or<br />
 			<param name="cipherfile" default="components/com_simpledownload/helpers/encryption.php" />
 			<param name="cipherfunction" default="jcrypt64" />
 			<param name="decipherfunction" default="jdecrypt64" />
+			<param name="log_downloads" default="0" />
 			<param name="title_filenotfound" default="File Not Found" />
 			<param name="msg_filenotfound" default="&lt;h1&gt;File Not Found&lt;/h1&gt;&lt;p&gt;The file you were requesting could not be found.  We're sorry for the inconvenience.&lt;/p&gt;" />
 			<param name="title_badcomponentconfiguration" default="Component Not Configured" />
