@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+	<name>SimpleDownload</name>
+	<!-- The following elements are optional and free of formatting conttraints -->
+	<creationDate>2010-05-16</creationDate>
+	<author>Joel Rowley</author>
+	<authorEmail>joomlaextensions@joelrowley.com</authorEmail>
+	<authorUrl>http://joomla.joelrowley.com</authorUrl>
+	<copyright>None</copyright>
+	<license>GPL</license>
+	<!--  The version string is recorded in the components table -->
+	<version>0.9.6</version>
+	<!-- The description is optional and defaults to the name -->
+	<description><![CDATA[<p>Thank you for trying out SimpleDownload. With this extention, you will be able to force the end users' browser to download files that would normally be viewed or played using a browser plugin (eg. MP3s, PDFs, etc).  SimpleDownload has the following features:</p>
+<ul>
+  <li>Force the end user's web browser to download file types that it normally has the ability to preview or play.</li>
+  <li>Encrypt the path to the file so the user cannot download unintended items.</li>
+  <li>Use the builtin encryption scheme or create/specify your own to be used.</li>
+  <li>Set a &quot;base path&quot; that all files must be located in to be downloaded.</li>
+  <li>Configure the error message to display when a file cannot be found. </li>
+</ul>
+<p>The format of the URL for downloading would look like the following:</p>
+<p><strong>[joomla url]/index.php?option=com_simpledownload&amp;task=download&amp;fileid=/path/to/file.ext</strong><br />
+or<br />
+<strong>[joomla url]/index.php?option=com_simpledownload&amp;task=download&amp;fileid=L3BhdGgvdG8vZmlsZS5leHQ=</strong></p>
+<p>I hope you enjoy this extension and does exactly what you were looking for. I will update this extension as needed. Please give me feedback and let me know of any security holes if you find any.</p>
+<p>Thanks!<br />
+  Joel Rowley (<a href="mailto:joomlaextensions@joelrowley.com">joomlaextensions@joelrowley.com</a>)</p>]]></description>
+
+	<!-- Site Main File Copy Section -->
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>simpledownload.php</filename>
+		<filename>index.html</filename>
+		<folder>helpers</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+	
+	<install>
+		<params>
+			<param name="basedownloadpath" default="images" />
+			<param name="cipherenabled" default="0" />
+			<param name="cipherfile" default="components/com_simpledownload/helpers/encryption.php" />
+			<param name="cipherfunction" default="jcrypt64" />
+			<param name="decipherfunction" default="jdecrypt64" />
+			<param name="title_filenotfound" default="File Not Found" />
+			<param name="msg_filenotfound" default="&lt;h1&gt;File Not Found&lt;/h1&gt;&lt;p&gt;The file you were requesting could not be found.  We're sorry for the inconvenience.&lt;/p&gt;" />
+			<param name="title_badcomponentconfiguration" default="Component Not Configured" />
+			<param name="msg_badcomponentconfiguration" default="&lt;h1&gt;Administrative Configuration Required&lt;/h1&gt;&lt;p&gt;We were unable to complete your request because the component has not been completely or correctly configured.  You may want to contact the site administrator about this problem.&lt;/p&gt;" />
+			
+		</params>
+	</install>
+
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu>SimpleDownload</menu>
+		
+		<!-- Administration Main File Copy Section -->
+		<!-- Note the folder attribute: This attribute describes the folder
+			to copy FROM in the package to install therefore files copied
+			in this section are copied from /admin/ in the package -->
+		<files folder="admin">
+			<!-- Site Main File Copy Section -->
+			<filename>index.html</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>simpledownload.php</filename>
+			<folder>views</folder>
+			<folder>graphics</folder>
+		</files>		
+	</administration>
+</install>
