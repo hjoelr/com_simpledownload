@@ -14,12 +14,22 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.controller');
 
 /**
- * Hello World Component Controller
+ * SimpleDownload Component Controller
  *
- * @package		HelloWorld
+ * @package		Joomla.Joelrowley.Com
  */
 class SimpleDownloadController extends JController
 {
+	/**
+	 * Custom Constructor
+	 */
+	function __construct( $default = array())
+	{
+		parent::__construct( $default );
+		
+		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simpledownload'.DS.'tables');
+
+	}
 	/**
 	 * Method to display the view
 	 *
@@ -68,7 +78,7 @@ class SimpleDownloadController extends JController
 		}
 	}
 	
-/**
+	/**
 	 * Method to initiate the download of a file.
 	 *
 	 * @access public
@@ -83,7 +93,7 @@ class SimpleDownloadController extends JController
 
 		$base_download_path	= $params->get('basedownloadpath');
 		$cipherenabled		= $params->get('cipherenabled');
-		$log_downloads		= $params->get('log_downloads');
+		$log_downloads		= $params->get('log_downloads') == '1';
 		$cipherfile			= $params->get('cipherfile');
 		$decipherfunction	= $params->get('decipherfunction');
 
@@ -124,46 +134,23 @@ class SimpleDownloadController extends JController
 		if (!preg_match('/^'.$base_download_path.'/', $cleanedPath)) {
 			$cleanedPath = $base_download_path.DS.$cleanedPath; // add base path if it doesn't already exist in the file path.
 		}
-
-
-		if ($log_downloads == "1") {
-			// create table if it doesn't exist
-			if ($this->createLogTable()) {
-				
-				//   -   -   -   -   -
-				$a_user = &JFactory::getUser();
-
-				$db = &JFactory::getDBO();
-
-				$query =
-				'INSERT INTO #__simple_download_hits
-				(  url
-				, userid
-				, name
-				, username
-				, filepath
-				, ip
-				, hit_date
-				)
-				VALUES
-				("' . $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] . '"
-				, '  . $a_user->id . '
-				, "' . $a_user->name . '"
-				, "' . $a_user->username . '"
-				, "' . $cleanedPath . '"
-				, "' . $_SERVER['REMOTE_ADDR'] . '"
-				, now()
-				)';
-
-				$db->setQuery($query);
-				if (!$db->query()) {
-					// TBD:  How to handle insert error?
-				}
-
-				//   -   -   -   -   -
-
-			} else {
-				// TBD:  How to handle error if log table not created?
+		
+		$row =& JTable::getInstance('simpledownloadhits');
+		
+		if ($log_downloads) {
+			
+			$row->url = JRequest::getVar('SERVER_NAME', '', 'SERVER').JRequest::getVar('REQUEST_URI', '', 'SERVER');
+			$row->referrer = JRequest::getVar('HTTP_REFERER', '', 'SERVER');
+			$row->userid = $a_user->id;
+			$row->name = $a_user->name;
+			$row->username = $a_user->username;
+			$row->filepath = $cleanedPath;
+			$row->ip = JRequest::getVar('REMOTE_ADDR', '0.0.0.0', 'SERVER');
+			$row->hit_date = date('Y-m-d H:i:s');
+			$row->downloadstatus = 'Attempted';
+			
+			if (!$row->store()) {
+				return JError::raiseWarning( 500, $row->getError() );
 			}
 
 		}
@@ -174,16 +161,45 @@ class SimpleDownloadController extends JController
 
 			switch ($return) {
 				case 404: // file not found
+					
+					if ($log_downloads) {
+						$row->downloadstatus = 'File Not Found';
+						
+						if (!$row->store()) {
+							return JError::raiseWarning( 500, $row->getError() );
+						}
+					}
+					
 					$view->assignRef('page_title', $params->get('title_filenotfound'));
 					$view->assignRef('msg', $params->get('msg_filenotfound'));
 					$view->display();
 					break;
 				default:
+					
+					if ($log_downloads) {
+						$row->downloadstatus = 'Component Error';
+						
+						if (!$row->store()) {
+							return JError::raiseWarning( 500, $row->getError() );
+						}
+					}
+					
 					$view->assignRef('page_title', 'Component Error');
 					$view->assignRef('msg', 'An unknown error occurred.  Sorry for the inconvenience.');
 					$view->display();
 					break;
 			}
+		} else { // successful download
+			if ($log_downloads) {
+				
+				$row->downloadstatus = 'Downloaded';
+				
+				if (!$row->store()) {
+					return JError::raiseWarning( 500, $row->getError() );
+				}
+			}
+			
+			exit;	// this is required for the stream to finish
 		}
 	}
 	

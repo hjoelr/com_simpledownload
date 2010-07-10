@@ -3,11 +3,11 @@
 	<params>
 		<param type="text" name="basedownloadpath" default="images" size="25" label="Base Download Path" description="Enter the path to the folder that any requested download file must be underneath (eg. images/downloads would allow a person to download a file that has the path of images/downloads/applications/app.exe, but would not allow something like components/com_component/controller.php)" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param type="radio" name="cipherenabled" default="0" label="Enable Cipher" description="Should the path be encrypted? (Note: if this is set to yes, the fields below must also be set correctly).">
+		<param type="radio" name="cipherenabled" default="1" label="Enable Cipher" description="Should the path be encrypted? (Note: if this is set to yes, the fields below must also be set correctly).">
 			<option value="1">Yes</option>
 			<option value="0">No</option>
 		</param>
-		<param type="radio" name="log_downloads" default="0" label="Log Downloads" description="If set to yes, downloads will be logged to #__simple_download_hits table.">
+		<param type="radio" name="log_downloads" default="0" label="Log Downloads" description="If set to yes, downloads will be logged to #__simpledownload_hits table.">
 			<option value="1">Yes</option>
 			<option value="0">No</option>
 		</param>

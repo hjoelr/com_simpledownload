@@ -40,7 +40,7 @@ or<br />
 	<install>
 		<params>
 			<param name="basedownloadpath" default="images" />
-			<param name="cipherenabled" default="0" />
+			<param name="cipherenabled" default="1" />
 			<param name="cipherfile" default="components/com_simpledownload/helpers/encryption.php" />
 			<param name="cipherfunction" default="jcrypt64" />
 			<param name="decipherfunction" default="jdecrypt64" />
@@ -51,7 +51,17 @@ or<br />
 			<param name="msg_badcomponentconfiguration" default="&lt;h1&gt;Administrative Configuration Required&lt;/h1&gt;&lt;p&gt;We were unable to complete your request because the component has not been completely or correctly configured.  You may want to contact the site administrator about this problem.&lt;/p&gt;" />
 			
 		</params>
+		
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
 	</install>
+	
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
 
 	<administration>
 		<!-- Administration Menu Section -->
@@ -67,8 +77,10 @@ or<br />
 			<filename>config.xml</filename>
 			<filename>controller.php</filename>
 			<filename>simpledownload.php</filename>
-			<folder>views</folder>
 			<folder>graphics</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
 		</files>		
 	</administration>
 </install>

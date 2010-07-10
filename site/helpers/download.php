@@ -99,7 +99,7 @@ function download_file($filePath) {
 		
 		//changeDirectory(getPathArray($oldPath)); // change back to original directory.
 		
-		exit;
+		//exit;
 	} else {
 		$toReturn = 404; // file not found
 	}
