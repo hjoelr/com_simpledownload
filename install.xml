@@ -19,9 +19,9 @@
   <li>Configure the error message to display when a file cannot be found. </li>
   <li>Log each downloaded file to the database.</li>
 </ul>
-<p>The format of the URL for downloading would look like the following:</p>
+<p>The format of the URL for downloading would look like the following (without cipher enabled):</p>
 <p><strong>[joomla url]/index.php?option=com_simpledownload&amp;task=download&amp;fileid=/path/to/file.ext</strong><br />
-or<br />
+or (with cipher enabled):<br />
 <strong>[joomla url]/index.php?option=com_simpledownload&amp;task=download&amp;fileid=L3BhdGgvdG8vZmlsZS5leHQ=</strong></p>
 <p>I hope you enjoy this extension and does exactly what you were looking for. I will update this extension as needed. Please give me feedback and let me know of any security holes if you find any.</p>
 <p>Thanks!<br />
