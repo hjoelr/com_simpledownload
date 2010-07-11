@@ -48,6 +48,8 @@ class SimpleDownloadModelDownloadHits extends JModel
 	
 	function getWhereAny($search, $filter_status)
 	{
+		$where = array();
+		
 		if ( $search ) {
 			$db =& JFactory::getDBO();
 			
@@ -81,36 +83,6 @@ class SimpleDownloadModelDownloadHits extends JModel
 		return $where;
 	}
 	
-	function getWhereFilepath($search)
-	{
-		if ( $search ) {
-			$db =& JFactory::getDBO();
-			
-			$searchCleaned = $db->Quote( '%'.$db->getEscaped( $search, true ).'%', false );
-			
-			$where[] = '(LOWER( h.filepath ) LIKE '.$searchCleaned.')';
-		}
-
-		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
-		
-		return $where;
-	}
-	
-	function getWhereFileid($search)
-	{
-		if ( $search ) {
-			$db =& JFactory::getDBO();
-			
-			$searchCleaned = $db->Quote( '%'.$db->getEscaped( $search, true ).'%', false );
-			
-			$where[] = '(LOWER( h.fileid ) LIKE '.$searchCleaned.')';
-		}
-
-		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
-		
-		return $where;
-	}
-	
 	function getOrderBy($filter_order, $filter_order_Dir)
 	{
 		$orderby = ' ORDER BY '. $filter_order . ' '. $filter_order_Dir;
@@ -122,14 +94,17 @@ class SimpleDownloadModelDownloadHits extends JModel
 	{
 		$db =& JFactory::getDBO();
 		
-		$query = 'SELECT h.*'
+		$query = 'SELECT *'
 			. ' FROM #__simpledownload_hits as h'
 			. $where
-			. ' GROUP BY h.id'
 			. $orderby
 			;
 		
 		$db->setQuery( $query, $pagination->limitstart, $pagination->limit );
+		
+//		$firephp = FirePHP::getInstance(true);
+//		$firephp->log($db->getQuery(), 'query');
+		
 		$rows = $db->loadObjectList();
 		if ($db->getErrorNum()) {
 			return JError::raiseError( 500, $db->stderr() );
