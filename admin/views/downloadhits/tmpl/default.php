@@ -76,7 +76,7 @@
 			<?php echo $this->pagination->getRowOffset( $i ); ?>
 		</td>
 		<td>
-			<input type="checkbox" onclick="isChecked(this.checked);" value="<?php echo $row->id; ?>" name="cid[]" id="cb<?php echo $k; ?>">
+			<input type="checkbox" onclick="isChecked(this.checked);" value="<?php echo $row->id; ?>" name="cid[]" id="cb<?php echo $i; ?>">
 		</td>
 		<td>
 			<?php echo htmlentities($row->fileid); ?>
