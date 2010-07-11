@@ -2,11 +2,10 @@
 <install type="component" version="1.5.0">
 	<name>SimpleDownload</name>
 	<!-- The following elements are optional and free of formatting conttraints -->
-	<creationDate>2010-07-08</creationDate>
+	<creationDate>2010-07-10</creationDate>
 	<author>Joel Rowley</author>
 	<authorEmail>joomlaextensions@joelrowley.com</authorEmail>
 	<authorUrl>http://joomla.joelrowley.com</authorUrl>
-	<copyright>None</copyright>
 	<license>GPL</license>
 	<!--  The version string is recorded in the components table -->
 	<version>0.9.7</version>
@@ -18,6 +17,7 @@
   <li>Use the builtin encryption scheme or create/specify your own to be used.</li>
   <li>Set a &quot;base path&quot; that all files must be located in to be downloaded.</li>
   <li>Configure the error message to display when a file cannot be found. </li>
+  <li>Log each downloaded file to the database.</li>
 </ul>
 <p>The format of the URL for downloading would look like the following:</p>
 <p><strong>[joomla url]/index.php?option=com_simpledownload&amp;task=download&amp;fileid=/path/to/file.ext</strong><br />
@@ -37,6 +37,10 @@ or<br />
 		<folder>views</folder>
 	</files>
 	
+	<languages folder="site/languages">
+		<language tag="en-GB">en-GB.com_simpledownload.ini</language>
+	</languages>
+	
 	<install>
 		<params>
 			<param name="basedownloadpath" default="images" />
@@ -47,8 +51,6 @@ or<br />
 			<param name="log_downloads" default="0" />
 			<param name="title_filenotfound" default="File Not Found" />
 			<param name="msg_filenotfound" default="&lt;h1&gt;File Not Found&lt;/h1&gt;&lt;p&gt;The file you were requesting could not be found.  We're sorry for the inconvenience.&lt;/p&gt;" />
-			<param name="title_badcomponentconfiguration" default="Component Not Configured" />
-			<param name="msg_badcomponentconfiguration" default="&lt;h1&gt;Administrative Configuration Required&lt;/h1&gt;&lt;p&gt;We were unable to complete your request because the component has not been completely or correctly configured.  You may want to contact the site administrator about this problem.&lt;/p&gt;" />
 			
 		</params>
 		
@@ -57,15 +59,19 @@ or<br />
 		</sql>
 	</install>
 	
-	<uninstall>
+	<!--<uninstall>
 		<sql>
 			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
 		</sql>
-	</uninstall>
+	</uninstall>-->
 
 	<administration>
 		<!-- Administration Menu Section -->
-		<menu>SimpleDownload</menu>
+		<menu img="../administrator/components/com_simpledownload/assets/images/icon-16-logo.png">SimpleDownload</menu>
+		<submenu>
+			<menu link="option=com_simpledownload&amp;view=downloadhits">Download Hits</menu>
+			<!-- <menu link="option=com_simpledownload&amp;view=tophits">Top Hits</menu> -->
+		</submenu>
 		
 		<!-- Administration Main File Copy Section -->
 		<!-- Note the folder attribute: This attribute describes the folder
@@ -77,10 +83,16 @@ or<br />
 			<filename>config.xml</filename>
 			<filename>controller.php</filename>
 			<filename>simpledownload.php</filename>
-			<folder>graphics</folder>
+			<folder>assets</folder>
+			<folder>languages</folder>
+			<folder>models</folder>
 			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>views</folder>
-		</files>		
+		</files>
+		
+		<languages folder="admin/languages">
+			<language tag="en-GB">en-GB.com_simpledownload.ini</language>
+		</languages>
 	</administration>
 </install>

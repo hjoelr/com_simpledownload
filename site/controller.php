@@ -12,6 +12,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controller');
+jimport( 'joomla.error.error' );
 
 /**
  * SimpleDownload Component Controller
@@ -40,44 +41,6 @@ class SimpleDownloadController extends JController
 		parent::display();
 	}
 	
-/**
-	 * Method to create the table for logging downloads if it doesn't already exist
-	 *
-	 * @access	public
-	 */
-	function createLogTable()
-	{
-		$db =& JFactory::getDBO();
-
-		$query = "CREATE TABLE IF NOT EXISTS `#__simple_download_hits` (
-             `id`       int(11) unsigned NOT NULL auto_increment
-          ,  `url`      varchar(255)     NOT NULL default ''
-          ,  `userid`   int(11) unsigned NOT NULL default 0
-          ,  `name`     varchar(255)     NOT NULL default ''
-          ,  `username` varchar(255)     NOT NULL default ''
-          ,  `filepath` varchar(255)     NOT NULL default ''
-          ,  `ip`       varchar(15)      NOT NULL default ''
-          ,  `hit_date` datetime         NOT NULL default '0000-00-00 00:00:00'
-          ,  PRIMARY KEY  (`id`)
-          ,  KEY idx_url      (`url`     )
-          ,  KEY idx_userid   (`userid`  )
-          ,  KEY idx_name     (`name`    )
-          ,  KEY idx_username (`username`)
-          ,  KEY idx_filepath (`filepath`)
-          ,  KEY idx_ip       (`ip`      )
-          ,  KEY idx_hit_date (`hit_date`)
-          ) TYPE=MyISAM; "
-          ;
-
-		$db->setQuery($query);
-
-		if (!$db->query()) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-	
 	/**
 	 * Method to initiate the download of a file.
 	 *
@@ -91,7 +54,7 @@ class SimpleDownloadController extends JController
 
 		$view	=& $this->getView('error', 'html');
 
-		$base_download_path	= $params->get('basedownloadpath');
+		$base_download_path	= $params->get('basedownloadpath', '');
 		$cipherenabled		= $params->get('cipherenabled');
 		$log_downloads		= $params->get('log_downloads') == '1';
 		$cipherfile			= $params->get('cipherfile');
@@ -99,12 +62,19 @@ class SimpleDownloadController extends JController
 
 		$encryptedPath		= JRequest::getVar('fileid');
 		$decryptedPath		= '';
+		
+		if ($base_download_path == '') {
+			$view->assignRef('page_title', JText::_('INVALID_COMPONENT_CONFIGURATION_PAGE_TITLE'));
+			$view->assignRef('msg', JText::_('INVALID_COMPONENT_CONFIGURATION_MESSAGE'));
+			$view->display();
+			return;
+		}
 
 		if ($cipherenabled == "1") {
 			// text should be encrypted and needs to be decrypted
 			if (!($cipherfile != "" && file_exists($cipherfile) && $decipherfunction != "")) {
-				$view->assignRef('page_title', $params->get('title_badcomponentconfiguration'));
-				$view->assignRef('msg', $params->get('msg_badcomponentconfiguration'));
+				$view->assignRef('page_title', JText::_('INVALID_COMPONENT_CONFIGURATION_PAGE_TITLE'));
+				$view->assignRef('msg', JText::_('INVALID_COMPONENT_CONFIGURATION_MESSAGE'));
 				$view->display();
 				return;
 			} else {
@@ -139,7 +109,7 @@ class SimpleDownloadController extends JController
 		
 		if ($log_downloads) {
 			
-			$row->url = JRequest::getVar('SERVER_NAME', '', 'SERVER').JRequest::getVar('REQUEST_URI', '', 'SERVER');
+			$row->fileid = JRequest::getVar('fileid'); //JRequest::getVar('SERVER_NAME', '', 'SERVER').JRequest::getVar('REQUEST_URI', '', 'SERVER');
 			$row->referrer = JRequest::getVar('HTTP_REFERER', '', 'SERVER');
 			$row->userid = $a_user->id;
 			$row->name = $a_user->name;
@@ -147,7 +117,7 @@ class SimpleDownloadController extends JController
 			$row->filepath = $cleanedPath;
 			$row->ip = JRequest::getVar('REMOTE_ADDR', '0.0.0.0', 'SERVER');
 			$row->hit_date = date('Y-m-d H:i:s');
-			$row->downloadstatus = 'Attempted';
+			$row->downloadstatus = 'ATT';
 			
 			if (!$row->store()) {
 				return JError::raiseWarning( 500, $row->getError() );
@@ -163,7 +133,7 @@ class SimpleDownloadController extends JController
 				case 404: // file not found
 					
 					if ($log_downloads) {
-						$row->downloadstatus = 'File Not Found';
+						$row->downloadstatus = 'FNF';
 						
 						if (!$row->store()) {
 							return JError::raiseWarning( 500, $row->getError() );
@@ -177,7 +147,7 @@ class SimpleDownloadController extends JController
 				default:
 					
 					if ($log_downloads) {
-						$row->downloadstatus = 'Component Error';
+						$row->downloadstatus = 'CE';
 						
 						if (!$row->store()) {
 							return JError::raiseWarning( 500, $row->getError() );
@@ -192,7 +162,7 @@ class SimpleDownloadController extends JController
 		} else { // successful download
 			if ($log_downloads) {
 				
-				$row->downloadstatus = 'Downloaded';
+				$row->downloadstatus = 'DL';
 				
 				if (!$row->store()) {
 					return JError::raiseWarning( 500, $row->getError() );

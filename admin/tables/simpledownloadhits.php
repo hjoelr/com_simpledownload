@@ -5,7 +5,7 @@ defined('_JEXEC') or die();
 class JTableSimpleDownloadHits extends JTable
 {
         var $id = 0;
-        var $url = '';
+        var $fileid = '';
         var $referrer = '';
         var $filepath = '';
         var $downloadstatus = '';

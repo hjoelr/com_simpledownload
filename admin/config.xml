@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 	<params>
-		<param type="text" name="basedownloadpath" default="images" size="25" label="Base Download Path" description="Enter the path to the folder that any requested download file must be underneath (eg. images/downloads would allow a person to download a file that has the path of images/downloads/applications/app.exe, but would not allow something like components/com_component/controller.php)" />
+		<param type="text" name="basedownloadpath" default="images" size="25" label="BASE_DOWNLOAD_PATH" description="BASE_DOWNLOAD_PATH_DESC" />
 		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param type="radio" name="cipherenabled" default="1" label="Enable Cipher" description="Should the path be encrypted? (Note: if this is set to yes, the fields below must also be set correctly).">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
+		<param type="radio" name="cipherenabled" default="1" label="ENABLE_CIPHER" description="ENABLE_CIPHER_DESC">
+			<option value="1">LANG_YES</option>
+			<option value="0">LANG_NO</option>
 		</param>
-		<param type="radio" name="log_downloads" default="0" label="Log Downloads" description="If set to yes, downloads will be logged to #__simpledownload_hits table.">
-			<option value="1">Yes</option>
-			<option value="0">No</option>
+		<param type="radio" name="log_downloads" default="0" label="LOG_DOWNLOADS" description="LOG_DOWNLOADS_DESC">
+			<option value="1">LANG_YES</option>
+			<option value="0">LANG_NO</option>
 		</param>
-		<param type="text" name="cipherfile" default="components/com_simpledownload/helpers/encryption.php" size="25" label="Cipher File" description="The path to the file that will be used to encrypt and decrypt the file path." />
-		<param type="text" name="cipherfunction" default="jcrypt64" size="25" label="Cipher Function" description="The function to call (thats located in the cipher file) that will encrypt the file path." />
-		<param type="text" name="decipherfunction" default="jdecrypt64" size="25" label="Decipher Function" description="The function to call (thats located in the cipher file) that will decrypt the file path." />
+		<param type="text" name="cipherfile" default="components/com_simpledownload/helpers/encryption.php" size="25" label="CIPHER_FILE" description="CIPHER_FILE_DESC" />
+		<param type="text" name="cipherfunction" default="jcrypt64" size="25" label="CIPHER_FUNCTION" description="CIPHER_FUNCTION_DESC" />
+		<param type="text" name="decipherfunction" default="jdecrypt64" size="25" label="DECIPHER_FUNCTION" description="DECIPHER_FUNCTION_DESC" />
 		<param name="@spacer" type="spacer" default="" label="Default Messages" description="" />
-		<param type="text" name="title_filenotfound" default="File Not Found" size="25" label="File Not Found Page Title" description="Page title to show when the file requested is not found." />
-		<param type="textarea" name="msg_filenotfound" rows="10" cols="50" default="&lt;h1&gt;File Not Found&lt;/h1&gt;&lt;p&gt;The file you were requesting could not be found.  We're sorry for the inconvenience.&lt;/p&gt;" label="File Not Found Msg" description="Enter the message you would like to be displayed in the case where the file is not found." />
-		<param type="text" name="title_badcomponentconfiguration" default="Component Not Configured" size="25" label="Invalid Component Configuration Page Title" description="Page title to show when the component mis-configuration message is shown." />
-		<param type="textarea" name="msg_badcomponentconfiguration" rows="10" cols="50" default="&lt;h1&gt;Administrative Configuration Required&lt;/h1&gt;&lt;p&gt;We were unable to complete your request because the component has not been completely or correctly configured.  You may want to contact the site administrator about this problem.&lt;/p&gt;" label="Invalid Component Configuration Msg" description="Enter the message you would like to be displayed when this component is not configured correctly." />
+		<param type="text" name="title_filenotfound" default="File Not Found" size="25" label="FILE_NOT_FOUND_PAGE_TITLE" description="FILE_NOT_FOUND_PAGE_TITLE_DESC" />
+		<param type="textarea" name="msg_filenotfound" rows="10" cols="50" default="&lt;h1&gt;File Not Found&lt;/h1&gt;&lt;p&gt;The file you were requesting could not be found.  We're sorry for the inconvenience.&lt;/p&gt;" label="FILE_NOT_FOUND_MESSAGE" description="FILE_NOT_FOUND_MESSAGE_DESC" />
 	</params>
 </root>

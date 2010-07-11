@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `#__simpledownload_hits` (
 	`id`				int(11) unsigned NOT NULL auto_increment,
-	`url`				varchar(255)     NOT NULL default '',
+	`fileid`			varchar(255)     NOT NULL default '',
 	`referrer`			varchar(255)     NOT NULL default '',
 	`filepath`			varchar(255)     NOT NULL default '',
 	`downloadstatus`	varchar(100)     NOT NULL default '',
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `#__simpledownload_hits` (
 	`ip`       varchar(15)      NOT NULL default '',
 	`hit_date` datetime         NOT NULL default '0000-00-00 00:00:00',
 	PRIMARY KEY  (`id`),
-	KEY idx_url				(`url`     ),
+	KEY idx_fileid			(`fileid`     ),
 	KEY idx_referrer		(`referrer`),
 	KEY idx_filepath		(`filepath`),
 	KEY idx_downloadstatus	(`downloadstatus`),
