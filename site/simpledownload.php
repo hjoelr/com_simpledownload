@@ -14,17 +14,6 @@ defined('_JEXEC') or die('Restricted access');
 // Require the base controller
 require_once (JPATH_COMPONENT.DS.'controller.php');
 
-/*$controller = addslashes(JRequest::getVar('controller'));
-
-// Require specific controller if requested
-if($controller) {
-	require_once (JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php');
-}
-
-// Create the controller
-$classname	= 'SimpleDownloadController'.$controller;
-$controller = new $classname();*/
-
 $controller = new SimpleDownloadController();
 
 // Perform the Request task
