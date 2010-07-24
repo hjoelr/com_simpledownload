@@ -109,6 +109,8 @@ class SimpleDownloadController extends JController
 		
 		if ($log_downloads) {
 			
+			$a_user = &JFactory::getUser();
+			
 			$row->fileid = JRequest::getVar('fileid'); //JRequest::getVar('SERVER_NAME', '', 'SERVER').JRequest::getVar('REQUEST_URI', '', 'SERVER');
 			$row->referrer = JRequest::getVar('HTTP_REFERER', '', 'SERVER');
 			$row->userid = $a_user->id;
