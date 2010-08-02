@@ -59,7 +59,7 @@ class SimpleDownloadViewDownloadHits extends JView
 		$statusarray	= array (
 			JHTML::_('select.option', 'ALL', '- '.JText::_('SELECT_DOWNLOAD_STATUS').' -' ),
   			JHTML::_('select.option', 'DL', JText::_('DOWNLOADED') ),
-			JHTML::_('select.option', 'ATT', JText::_('ATTEMPTED_FAILED') ),
+			JHTML::_('select.option', 'ATT', JText::_('ATTEMPTED_DOWNLOADED') ),
   			JHTML::_('select.option', 'FNF', JText::_('FILE_NOT_FOUND') ),
   			JHTML::_('select.option', 'CE', JText::_('COMPONENT_ERROR') )
 		);

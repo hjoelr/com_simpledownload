@@ -94,7 +94,7 @@
 					echo JText::_( 'DOWNLOADED' );
 					break;
 				case 'ATT':
-					echo JText::_( 'ATTEMPTED_FAILED' );
+					echo JText::_( 'ATTEMPTED_DOWNLOADED' );
 					break;
 				case 'FNF':
 					echo JText::_( 'FILE_NOT_FOUND' );
