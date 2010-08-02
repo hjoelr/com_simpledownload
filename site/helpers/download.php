@@ -93,11 +93,11 @@ function download_file($filePath) {
 		ob_clean();
     	flush();
 		
-    	readfile($filename);
+    	readfile_chunked($filename);
 		
 		$toReturn = 0;
 		
-		//changeDirectory(getPathArray($oldPath)); // change back to original directory.
+		changeDirectory(getPathArray($oldPath)); // change back to original directory.
 		
 		//exit;
 	} else {
@@ -156,5 +156,44 @@ function getPathArray($mixedPath) {
 	}
 	
 	return $toReturn;
+}
+
+/**
+ * Takes a file to download and 'streams' it to the browser.  This function
+ * takes the place of readfile() and removes the 'memory_limit' error that was
+ * happening with readfile().
+ * 
+ * @credits chrisputnam and flobee in the comments here: http://php.net/manual/en/function.readfile.php
+ * 
+ * @param $filename the name of the file to download.
+ * @param $retbytes indicates whether or not to return how many bytes were delivered.
+ */
+function readfile_chunked($filename,$retbytes=true) {
+	$chunksize = 1*(1024*1024); // how many bytes per chunk
+	$buffer = '';
+	$cnt =0;
+	
+	$handle = fopen($filename, 'rb');
+	if ($handle === false) {
+		return false;
+	}
+	while (!feof($handle)) {
+		$buffer = fread($handle, $chunksize);
+		echo $buffer;
+		ob_flush();
+		flush();
+		if ($retbytes) {
+			$cnt += strlen($buffer);
+		}
+	}
+	
+	$status = fclose($handle);
+	
+	if ($retbytes && $status) {
+		return $cnt; // return num. bytes delivered like readfile() does.
+	}
+	
+	return $status;
+
 }
 ?>
