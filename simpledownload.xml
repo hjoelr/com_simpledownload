@@ -2,13 +2,13 @@
 <install type="component" version="1.5.0">
 	<name>SimpleDownload</name>
 	<!-- The following elements are optional and free of formatting conttraints -->
-	<creationDate>2010-08-02</creationDate>
+	<creationDate>2010-08-03</creationDate>
 	<author>Joel Rowley</author>
 	<authorEmail>joomlaextensions@joelrowley.com</authorEmail>
 	<authorUrl>http://joomla.joelrowley.com</authorUrl>
 	<license>GPL</license>
 	<!--  The version string is recorded in the components table -->
-	<version>1.0.0-beta</version>
+	<version>1.0.0</version>
 	<!-- The description is optional and defaults to the name -->
 	<description><![CDATA[<p>Thank you for trying out SimpleDownload. With this extention, you will be able to force the end users' browser to download files that would normally be viewed or played using a browser plugin (eg. MP3s, PDFs, etc).  SimpleDownload has the following features:</p>
 <ul>
