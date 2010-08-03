@@ -71,6 +71,11 @@ class SimpleDownloadViewDownload extends JView
 			$cleanedPath = $base_download_path.DS.$cleanedPath; // add base path if it doesn't already exist in the file path.
 		}
 		
+		if (!preg_match('%^([\d\w\-.\\\\ /&!]+)$%', $decryptedPath)) { 	// minimal attempt to prevent
+																		// invalid characters in file path
+			JApplication::redirect(JRoute::_('index.php?option=com_simpledownload&view=error&err=' . 404));
+		}
+		
 		$row =& JTable::getInstance('simpledownloadhits');
 		
 		if ($log_downloads) {
@@ -127,7 +132,7 @@ class SimpleDownloadViewDownload extends JView
 					
 					break;
 			}
-		} else { // successful download
+		} else { // successful download.  This section doesn't get hit after readfile_chunked was introduced.
 			if ($log_downloads) {
 				
 				$row->downloadstatus = 'DL';
