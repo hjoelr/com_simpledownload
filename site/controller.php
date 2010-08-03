@@ -13,6 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controller');
 jimport( 'joomla.error.error' );
+jimport( 'joomla.application.application' );
 
 /**
  * SimpleDownload Component Controller
@@ -39,6 +40,16 @@ class SimpleDownloadController extends JController
 	function display()
 	{
 		parent::display();
+	}
+	
+	/**
+	 * This is the function that initiates the download view.  This is access by
+	 * having 'task=download' in the URL.
+	 */
+	function download()
+	{
+		$view   =& $this->getView('download', 'raw');
+		$view->display();
 	}
 
 }

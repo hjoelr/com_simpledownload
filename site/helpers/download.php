@@ -93,7 +93,7 @@ function download_file($filePath) {
 		ob_clean();
     	flush();
 		
-    	readfile_chunked($filename);
+    	$bytesSent = readfile_chunked($filename);
 		
 		$toReturn = 0;
 		
