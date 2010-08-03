@@ -33,6 +33,7 @@ or (with cipher enabled):<br />
 		<filename>simpledownload.php</filename>
 		<filename>index.html</filename>
 		<folder>helpers</folder>
+		<folder>languages</folder>
 		<folder>models</folder>
 		<folder>views</folder>
 	</files>
