@@ -57,7 +57,7 @@ function download_file($filePath) {
 		
 		// get mime type of the file.
 		$ctype = '';
-		if ($allowed_ext[$file_extension] == '') {
+		if (!array_key_exists($file_extension, $allowed_ext)) {
 			// mime type is not set, get from server settings
 			if (function_exists('mime_content_type')) {
 				$ctype = mime_content_type($file_path);

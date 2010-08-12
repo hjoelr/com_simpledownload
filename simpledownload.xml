@@ -8,7 +8,7 @@
 	<authorUrl>http://joomla.joelrowley.com</authorUrl>
 	<license>GPL</license>
 	<!--  The version string is recorded in the components table -->
-	<version>1.0.0</version>
+	<version>1.0.0-beta1</version>
 	<!-- The description is optional and defaults to the name -->
 	<description><![CDATA[<p>Thank you for trying out SimpleDownload. With this extention, you will be able to force the end users' browser to download files that would normally be viewed or played using a browser plugin (eg. MP3s, PDFs, etc).  SimpleDownload has the following features:</p>
 <ul>
