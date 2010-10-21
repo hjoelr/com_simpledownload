@@ -78,10 +78,9 @@ function download_file($filePath) {
 		
 		$oldPath = getcwd(); // get current working directory
 		
-		changeDirectory(getPathArray($filePath));
+		$filePathArray = getPathArray($filePath);
+		changeDirectory($filePathArray);
 		$filename = getFilename($filePath);
-		
-		//echo $filename;
 		
 		// Tell the browser the mime type of the file to be downloaded.
 		header('Content-type: ' . $ctype);
@@ -95,9 +94,15 @@ function download_file($filePath) {
 		
     	$bytesSent = readfile_chunked($filename);
 		
-		$toReturn = 0;
+		$reverseFilePath = array();
+		for ($i=0; $i < count($filePathArray); ++$i)
+		{
+			$reverseFilePath[] = "..";
+		}
 		
-		changeDirectory(getPathArray($oldPath)); // change back to original directory.
+		changeDirectory($reverseFilePath);	// change back to the original directory
+		
+		$toReturn = 0;
 		
 		//exit;
 	} else {

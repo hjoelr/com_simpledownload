@@ -66,8 +66,8 @@ class SimpleDownloadViewDownload extends JView
 			$cleanedPathOld = $cleanedPath;
 			$cleanedPath = preg_replace($patterns, array(), $decryptedPath);
 		} while (strcasecmp($cleanedPathOld, $cleanedPath)); // be sure all permutations of bad items are removed.
-
-		if (!preg_match('/^'.preg_quote($base_download_path).'/', $cleanedPath)) {
+		
+		if (!preg_match('%^'.preg_quote($base_download_path).'%', $cleanedPath)) {
 			$cleanedPath = $base_download_path.DS.$cleanedPath; // add base path if it doesn't already exist in the file path.
 		}
 		
